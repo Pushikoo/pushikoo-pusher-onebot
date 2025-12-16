@@ -1,13 +1,13 @@
 <div align="center">
 
-# pushikoo-adapter-testpusher
+# pushikoo-pusher-onebot
 
-TestPusher for pushikoo-adapter development as a template.
+OneBot Pusher adapter for Pushikoo.
 
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Pushikoo/pushikoo-adapter-testpusher/package.yml)](https://github.com/Pushikoo/pushikoo-adapter-testpusher/actions)
-[![Python](https://img.shields.io/pypi/pyversions/pushikoo-adapter-testpusher)](https://pypi.org/project/pushikoo-adapter-testpusher)
-[![PyPI version](https://badge.fury.io/py/pushikoo-adapter-testpusher.svg)](https://pypi.org/project/pushikoo-adapter-testpusher)
-[![License](https://img.shields.io/github/license/Pushikoo/pushikoo-adapter-testpusher.svg)](https://pypi.org/project/pushikoo-adapter-testpusher/)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Pushikoo/pushikoo-pusher-onebot/package.yml)](https://github.com/Pushikoo/pushikoo-pusher-onebot/actions)
+[![Python](https://img.shields.io/pypi/pyversions/pushikoo-pusher-onebot)](https://pypi.org/project/pushikoo-pusher-onebot)
+[![PyPI version](https://badge.fury.io/py/pushikoo-pusher-onebot.svg)](https://pypi.org/project/pushikoo-pusher-onebot)
+[![License](https://img.shields.io/github/license/Pushikoo/pushikoo-pusher-onebot.svg)](https://pypi.org/project/pushikoo-pusher-onebot/)
 
 </div>
