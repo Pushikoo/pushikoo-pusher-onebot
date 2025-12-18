@@ -1,5 +1,6 @@
 import base64
 from pathlib import Path
+from urllib.parse import unquote, urlparse
 
 import requests
 
@@ -10,8 +11,9 @@ def image_to_base64(source: str) -> str:
         response = requests.get(source)
         response.raise_for_status()
         return base64.b64encode(response.content).decode()
-    else:
-        path = Path(source)
+    elif source.startswith("file://"):
+        parsed = urlparse(source)
+        path = Path(unquote(parsed.path.lstrip("/")))
         return base64.b64encode(path.read_bytes()).decode()
 
 
