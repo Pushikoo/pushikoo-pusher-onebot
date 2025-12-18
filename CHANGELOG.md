@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/Pushikoo/pushikoo-pusher-onebot/compare/v0.1.0...v0.1.1) (2025-12-18)
+
+
+### Bug Fixes
+
+* **api:** handle file url parsing in image_to_base64 ([c6e660f](https://github.com/Pushikoo/pushikoo-pusher-onebot/commit/c6e660f9d48d0ba0415f34636aa90ad1b7b54d07))
+
 ## 0.1.0 (2025-12-16)
 
 
