@@ -7,15 +7,19 @@ from pushikoo_pusher_onebot.config import AdapterConfig, ImageSendMethod, Instan
 
 class OneBot(Pusher[AdapterConfig, InstanceConfig]):
     def __init__(self) -> None:
+        logger.debug(f"{self.adapter_name}.{self.identifier} initialized")
+
+    def _create_api(self) -> OneBotAPIClient:
+        """Create API client instance with current config (supports hot-reload)."""
         bot_config = self.config.bots[self.instance_config.bot]
-        self.api = OneBotAPIClient(
+        return OneBotAPIClient(
             url=bot_config.url,
             token=bot_config.token,
             proxies=self.ctx.get_proxies(),
         )
-        logger.debug(f"{self.adapter_name}.{self.identifier} initialized")
 
     def push(self, content: Struct) -> None:
+        api = self._create_api()
         message_field = []
 
         # Count images
@@ -68,6 +72,6 @@ class OneBot(Pusher[AdapterConfig, InstanceConfig]):
         target_id = int(contact.id)
 
         if contact.private:
-            self.api.send_private_msg(target_id, message_field)
+            api.send_private_msg(target_id, message_field)
         else:
-            self.api.send_group_msg(target_id, message_field)
+            api.send_group_msg(target_id, message_field)
