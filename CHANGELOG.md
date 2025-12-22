@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/Pushikoo/pushikoo-pusher-onebot/compare/v0.1.1...v0.1.2) (2025-12-22)
+
+
+### Bug Fixes
+
+* trigger ci ([40cdf57](https://github.com/Pushikoo/pushikoo-pusher-onebot/commit/40cdf57a90a83c41ec4c89704524a2624a1c4bd8))
+
 ## [0.1.1](https://github.com/Pushikoo/pushikoo-pusher-onebot/compare/v0.1.0...v0.1.1) (2025-12-18)
 
 
