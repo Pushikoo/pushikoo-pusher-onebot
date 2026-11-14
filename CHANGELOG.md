@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/Pushikoo/pushikoo-pusher-onebot/compare/v0.1.2...v0.1.3) (2026-11-14)
+
+
+### Bug Fixes
+
+* add timeouts to OneBot HTTP requests ([a03df78](https://github.com/Pushikoo/pushikoo-pusher-onebot/commit/a03df781bea8e3b81161809c5b2114a8ad85c589))
+
 ## [0.1.2](https://github.com/Pushikoo/pushikoo-pusher-onebot/compare/v0.1.1...v0.1.2) (2025-12-22)
 
 
