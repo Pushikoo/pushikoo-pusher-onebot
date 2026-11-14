@@ -20,6 +20,11 @@ class Bot(BaseModel):
         default=None,
         description="OneBot Access Token, None means no authentication required",
     )
+    request_timeout_seconds: float = Field(
+        default=60,
+        ge=1,
+        description="HTTP response timeout in seconds",
+    )
 
 
 class Contact(BaseModel):

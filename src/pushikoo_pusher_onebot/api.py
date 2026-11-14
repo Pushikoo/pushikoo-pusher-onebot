@@ -5,10 +5,10 @@ from urllib.parse import unquote, urlparse
 import requests
 
 
-def image_to_base64(source: str) -> str:
-    """Convert image URL or local path to base64 string"""
+def image_to_base64(source: str, timeout_seconds: float = 60) -> str:
+    """Convert image URL or local path to base64 string."""
     if source.startswith(("http://", "https://")):
-        response = requests.get(source)
+        response = requests.get(source, timeout=(10, timeout_seconds))
         response.raise_for_status()
         return base64.b64encode(response.content).decode()
     elif source.startswith("file://"):
@@ -18,10 +18,17 @@ def image_to_base64(source: str) -> str:
 
 
 class OneBotAPIClient:
-    def __init__(self, url: str, token: str | None = None, proxies: dict | None = None):
+    def __init__(
+        self,
+        url: str,
+        token: str | None = None,
+        proxies: dict | None = None,
+        timeout_seconds: float = 60,
+    ):
         self.url = url.rstrip("/")
         self.token = token
         self.proxies = proxies
+        self.timeout = (10, timeout_seconds)
 
     def _headers(self) -> dict:
         headers = {"Content-Type": "application/json"}
@@ -35,6 +42,7 @@ class OneBotAPIClient:
             json={"user_id": user_id, "message": message},
             headers=self._headers(),
             proxies=self.proxies,
+            timeout=self.timeout,
         )
         response.raise_for_status()
         data = response.json()
@@ -48,6 +56,7 @@ class OneBotAPIClient:
             json={"group_id": group_id, "message": message},
             headers=self._headers(),
             proxies=self.proxies,
+            timeout=self.timeout,
         )
         response.raise_for_status()
         data = response.json()

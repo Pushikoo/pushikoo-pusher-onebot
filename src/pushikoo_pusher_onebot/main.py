@@ -16,10 +16,12 @@ class OneBot(Pusher[AdapterConfig, InstanceConfig]):
             url=bot_config.url,
             token=bot_config.token,
             proxies=self.ctx.get_proxies(),
+            timeout_seconds=bot_config.request_timeout_seconds,
         )
 
     def push(self, content: Struct) -> None:
         api = self._create_api()
+        bot_config = self.config.bots[self.instance_config.bot]
         message_field = []
 
         # Count images
@@ -57,7 +59,9 @@ class OneBot(Pusher[AdapterConfig, InstanceConfig]):
                 )
                 method = self.instance_config.image_send_method
                 if method == ImageSendMethod.BASE64:
-                    image_url = "base64://" + image_to_base64(source)
+                    image_url = "base64://" + image_to_base64(
+                        source, bot_config.request_timeout_seconds
+                    )
                 elif method == ImageSendMethod.URL:
                     image_url = source
                 elif method == ImageSendMethod.FILE:
