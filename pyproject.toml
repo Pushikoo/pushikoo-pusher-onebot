@@ -8,7 +8,7 @@ classifiers = [
   "Programming Language :: Python :: 3",
   "Operating System :: OS Independent",
 ]
-dependencies = ["pushikoo-interface>=0.3.0", "requests", "loguru"]
+dependencies = ["pushikoo-interface>=1.5.0", "requests", "loguru"]
 description = "OneBot Pusher adapter for Pushikoo."
 name = "pushikoo-pusher-onebot"
 readme = "README.md"

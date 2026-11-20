@@ -1,7 +1,9 @@
+import base64
+
 from loguru import logger
 from pushikoo_interface import Pusher, Struct, StructImage, StructText
 
-from pushikoo_pusher_onebot.api import OneBotAPIClient, image_to_base64
+from pushikoo_pusher_onebot.api import OneBotAPIClient
 from pushikoo_pusher_onebot.config import AdapterConfig, ImageSendMethod, InstanceConfig
 
 
@@ -59,9 +61,10 @@ class OneBot(Pusher[AdapterConfig, InstanceConfig]):
                 )
                 method = self.instance_config.image_send_method
                 if method == ImageSendMethod.BASE64:
-                    image_url = "base64://" + image_to_base64(
-                        source, bot_config.request_timeout_seconds
-                    )
+                    image_data = self.ctx.read_image(
+                        source, timeout=bot_config.request_timeout_seconds
+                    ).data
+                    image_url = "base64://" + base64.b64encode(image_data).decode()
                 elif method == ImageSendMethod.URL:
                     image_url = source
                 elif method == ImageSendMethod.FILE:

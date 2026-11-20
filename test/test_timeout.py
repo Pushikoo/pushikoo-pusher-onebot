@@ -2,10 +2,17 @@ import base64
 from unittest.mock import Mock, patch
 
 import pytest
+from pushikoo_interface import ImageBlob, Struct, StructImage
+from pushikoo_pusher_onebot.api import OneBotAPIClient
+from pushikoo_pusher_onebot.config import (
+    AdapterConfig,
+    Bot,
+    Contact,
+    ImageSendMethod,
+    InstanceConfig,
+)
+from pushikoo_pusher_onebot.main import OneBot
 from pydantic import ValidationError
-
-from pushikoo_pusher_onebot.api import OneBotAPIClient, image_to_base64
-from pushikoo_pusher_onebot.config import Bot
 
 
 def test_message_request_uses_configured_timeout():
@@ -24,14 +31,39 @@ def test_message_request_uses_configured_timeout():
 
 
 def test_remote_image_request_uses_configured_timeout():
-    response = Mock(content=b"image")
+    ctx = Mock()
+    ctx.get_config.return_value = AdapterConfig(
+        bots={"bot0": Bot(url="http://onebot.local", request_timeout_seconds=17)}
+    )
+    ctx.get_instance_config.return_value = InstanceConfig(
+        bot="bot0",
+        contact=Contact(id="123"),
+        image_send_method=ImageSendMethod.BASE64,
+    )
+    ctx.get_proxies.return_value = None
+    ctx.read_image.return_value = ImageBlob(
+        data=b"image",
+        content_type="image/png",
+        filename="image.png",
+    )
+    pusher = OneBot.__new__(OneBot)
+    pusher.ctx = ctx
 
-    with patch("pushikoo_pusher_onebot.api.requests.get", return_value=response) as get:
-        encoded = image_to_base64("https://example.com/image.png", 17)
+    with patch.object(OneBotAPIClient, "send_group_msg") as send:
+        pusher.push(
+            Struct(content=[StructImage(source="https://example.com/image.png")])
+        )
 
-    assert encoded == base64.b64encode(b"image").decode()
-    get.assert_called_once_with("https://example.com/image.png", timeout=(10, 17))
-    response.raise_for_status.assert_called_once_with()
+    ctx.read_image.assert_called_once_with("https://example.com/image.png", timeout=17)
+    send.assert_called_once_with(
+        123,
+        [
+            {
+                "type": "image",
+                "data": {"file": "base64://" + base64.b64encode(b"image").decode()},
+            }
+        ],
+    )
 
 
 def test_request_timeout_must_be_positive():

@@ -52,7 +52,10 @@ class InstanceConfig(PusherInstanceConfig):
     )
     image_send_method: ImageSendMethod = Field(
         default=ImageSendMethod.BASE64,
-        description="Image sending method",
+        description=(
+            "Image sending method. FILE only supports local paths; URL sources "
+            "produce an invalid file URI and are not supported."
+        ),
     )
     max_image_count: int = Field(
         default=15, description="Maximum number of images per message"

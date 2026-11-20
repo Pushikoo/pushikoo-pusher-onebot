@@ -1,20 +1,4 @@
-import base64
-from pathlib import Path
-from urllib.parse import unquote, urlparse
-
 import requests
-
-
-def image_to_base64(source: str, timeout_seconds: float = 60) -> str:
-    """Convert image URL or local path to base64 string."""
-    if source.startswith(("http://", "https://")):
-        response = requests.get(source, timeout=(10, timeout_seconds))
-        response.raise_for_status()
-        return base64.b64encode(response.content).decode()
-    elif source.startswith("file://"):
-        parsed = urlparse(source)
-        path = Path(unquote(parsed.path.lstrip("/")))
-        return base64.b64encode(path.read_bytes()).decode()
 
 
 class OneBotAPIClient:
