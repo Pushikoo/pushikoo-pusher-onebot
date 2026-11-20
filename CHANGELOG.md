@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/Pushikoo/pushikoo-pusher-onebot/compare/v0.1.3...v0.1.4) (2026-11-20)
+
+
+### Bug Fixes
+
+* read images via framework context in base64 mode ([b5ac2e1](https://github.com/Pushikoo/pushikoo-pusher-onebot/commit/b5ac2e147e2bcc64fc640729d6c2ad21b3275be1))
+
 ## [0.1.3](https://github.com/Pushikoo/pushikoo-pusher-onebot/compare/v0.1.2...v0.1.3) (2026-11-14)
 
 
